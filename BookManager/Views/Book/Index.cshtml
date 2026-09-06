@@ -1,0 +1,40 @@
+﻿@model List<BookManager.Models.Book>
+
+<h1>Книги</h1>
+
+@foreach(var book in Model)
+{
+	<p>
+		Название : @book.Title 
+		Жанр :@book.Genre 
+		Год : @book.Year 
+		Автор : @book.Author.Name
+	</p>
+}
+
+<button id="addBookButton">Добавить книгу</button>
+
+<dialog id="addBookWindow">
+	<h2>Добавить книгу</h2>
+
+	<form asp-action="Create" method="post">
+		<label>Название</label>
+		<input type="text" name="title" />
+
+		<label>Жанр</label>
+		<input type="text" name="genre"/>
+
+		<label>Год</label>
+		<input type="number" name="year"/>
+
+		<label>Автор</label>
+		<input type="text" name="authorName"/>
+
+		<button type="submit">Добавить</button>
+		<button type="button" id="closeBookWindow">Отмена</button>
+
+	</form>
+
+</dialog>
+
+<script src="~/js/book/book.js"></script>
