@@ -1,0 +1,27 @@
+﻿
+<dialog id="editBookWindow">
+	<h2>Редактировать книгу</h2>
+
+	<form asp-action="Edit" method="post">
+		<input type="hidden" id="editId" name="id"/>
+
+		<label>Название</label>
+		<input type="text" id="editTitle" name="title"/>
+
+		<label>Жанр</label>
+		<input type="text" id="editGenre" name="genre"/>
+
+		<label>Год</label>
+		<input type="number" id="editYear" name="year"/>
+
+		<label>Автор</label>
+		<input type="text" id="editAuthor" name="authorName"/>
+
+		<div class="add-book-buttons">
+			<button type="submit">Сохранить</button>
+			<button type="button" id="closeEditBookWindow">Отмена</button>
+		</div>
+
+	</form>
+
+</dialog>

@@ -1,40 +1,46 @@
 ﻿@model List<BookManager.Models.Book>
+<link rel="stylesheet" href="~/css/book/book.css"/>
 
 <h1>Книги</h1>
+<button id="addBookButton" class="add-book-button">Добавить книгу</button>
 
-@foreach(var book in Model)
-{
-	<p>
-		Название : @book.Title 
-		Жанр :@book.Genre 
-		Год : @book.Year 
-		Автор : @book.Author.Name
-	</p>
-}
 
-<button id="addBookButton">Добавить книгу</button>
+	<table>
+		<thead>
+			<tr>
+				<th>Название</th>
+				<th>Жанр</th>
+				<th>Год</th>
+				<th>Автор</th>
+				<th>Действия</th>
+			</tr>
+		</thead>
 
-<dialog id="addBookWindow">
-	<h2>Добавить книгу</h2>
+	<tbody>
+		@foreach (var book in Model)
+		{
+			<tr>
+				<td>@book.Title</td>
+				<td>@book.Genre</td>
+				<td>@book.Year</td>
+				<td>@book.Author.Name</td>
+				<td>
+					<button class="edit-book-button"
+					data-id="@book.Id"
+					data-title="@book.Title"
+					data-genre="@book.Genre"
+					data-year="@book.Year"
+					data-author="@book.Author.Name">
+				Редактировать
+				</button>
+				</td>
+			</tr>
+		}
 
-	<form asp-action="Create" method="post">
-		<label>Название</label>
-		<input type="text" name="title" />
+	</tbody>
+	</table>
 
-		<label>Жанр</label>
-		<input type="text" name="genre"/>
 
-		<label>Год</label>
-		<input type="number" name="year"/>
-
-		<label>Автор</label>
-		<input type="text" name="authorName"/>
-
-		<button type="submit">Добавить</button>
-		<button type="button" id="closeBookWindow">Отмена</button>
-
-	</form>
-
-</dialog>
-
+<partial name="_CreateModal" />
+<partial name="_EditModal" />
 <script src="~/js/book/book.js"></script>
