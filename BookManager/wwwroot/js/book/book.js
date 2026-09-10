@@ -9,3 +9,20 @@ addBookButton.addEventListener("click", () => {
 closeBookWindow.addEventListener("click", () => {
 	addBookWindow.close();
 });
+
+const editBookButtons = document.querySelectorAll(".edit-book-button");
+const editBookWindow = document.querySelector("#editBookWindow");
+const closeEditBookWindow = document.querySelector("#closeEditBookWindow");
+
+editBookButtons.forEach(button => button.addEventListener("click", () => {
+	document.querySelector("#editTitle").value = button.dataset.title;
+	document.querySelector("#editGenre").value = button.dataset.genre;
+	document.querySelector("#editId").value = button.dataset.id;
+	document.querySelector("#editYear").value = button.dataset.year;
+	document.querySelector("#editAuthor").value = button.dataset.author;
+
+
+	editBookWindow.showModal();
+}));
+
+closeEditBookWindow.addEventListener("click", () => { editBookWindow.close(); });

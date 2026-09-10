@@ -25,14 +25,7 @@
 				<td>@book.Year</td>
 				<td>@book.Author.Name</td>
 				<td>
-					<button class="edit-book-button"
-					data-id="@book.Id"
-					data-title="@book.Title"
-					data-genre="@book.Genre"
-					data-year="@book.Year"
-					data-author="@book.Author.Name">
-				Редактировать
-				</button>
+					<partial name="_BookActions" model="@book" />
 				</td>
 			</tr>
 		}

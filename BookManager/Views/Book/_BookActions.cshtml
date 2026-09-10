@@ -1,0 +1,18 @@
+﻿@model BookManager.Models.Book
+
+<div class="book-actions">
+	<button class="edit-book-button"
+			data-id="@Model.Id"
+			data-title="@Model.Title"
+			data-genre="@Model.Genre"
+			data-year="@Model.Year"
+			data-author="@Model.Author.Name">
+		Редактировать
+	</button>
+
+	<form asp-action="Delete" method="post"
+	onsubmit="return confirm('Удалить эту книгу?');">
+		<input type="hidden" name="id" value="@Model.Id"/>
+		<button type="submit">Удалить</button>
+	</form>
+</div>

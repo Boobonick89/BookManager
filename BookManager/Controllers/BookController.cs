@@ -52,7 +52,55 @@ namespace BookManager.Controllers
 
 			return RedirectToAction("Index");
 
-			
+		}
+		
+		[HttpPost]
+		public IActionResult Edit(int id,string title,string genre,int year, string authorName)
+		{
+			var book = _context.Books.FirstOrDefault(b=>b.Id == id);
+
+			if(book == null)
+			{
+				return RedirectToAction("Index");
+			}
+
+			var author = _context.Authors.FirstOrDefault(a=>a.Name ==authorName);
+
+			if(author == null)
+			{
+				author = new Author
+				{
+					Name = authorName
+				};
+			}
+
+			_context.Authors.Add(author);
+			_context.SaveChanges();
+
+			book.Title = title;
+			book.Genre = genre;
+			book.Year = year;
+			book.AuthorId = author.Id;
+
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		public IActionResult Delete(int id)
+		{
+			var book = _context.Books.FirstOrDefault(b=>b.Id==id);
+
+			if( book == null )
+			{
+				return RedirectToAction("Index");
+			}
+
+			_context.Books.Remove(book);
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
 		}
 
 	}
