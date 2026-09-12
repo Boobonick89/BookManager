@@ -26,3 +26,15 @@ editBookButtons.forEach(button => button.addEventListener("click", () => {
 }));
 
 closeEditBookWindow.addEventListener("click", () => { editBookWindow.close(); });
+
+const searchBookButton = document.querySelector("#searchBookButton");
+const searchBookWindow = document.querySelector("#searchBookWindow");
+const closeSearchBookWindow = document.querySelector("#closeSearchBookWindow");
+
+searchBookButton.addEventListener("click", () => {
+	searchBookWindow.showModal();
+});
+
+closeSearchBookWindow.addEventListener("click", () => {
+	searchBookWindow.close();
+});

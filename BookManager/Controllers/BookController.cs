@@ -17,15 +17,15 @@ namespace BookManager.Controllers
 
 		public IActionResult Index()
 		{
-			var books =_context.Books.Include(b=>b.Author).ToList();
+			var books = _context.Books.Include(b => b.Author).ToList();
 
 			return View(books);
 		}
 
 		[HttpPost]
-		public IActionResult Create(string title,string genre,int year,string authorName)
+		public IActionResult Create(string title, string genre, int year, string authorName)
 		{
-			var author =_context.Authors.FirstOrDefault(a=>a.Name == authorName);
+			var author = _context.Authors.FirstOrDefault(a => a.Name == authorName);
 
 			if (author == null)
 			{
@@ -53,20 +53,20 @@ namespace BookManager.Controllers
 			return RedirectToAction("Index");
 
 		}
-		
-		[HttpPost]
-		public IActionResult Edit(int id,string title,string genre,int year, string authorName)
-		{
-			var book = _context.Books.FirstOrDefault(b=>b.Id == id);
 
-			if(book == null)
+		[HttpPost]
+		public IActionResult Edit(int id, string title, string genre, int year, string authorName)
+		{
+			var book = _context.Books.FirstOrDefault(b => b.Id == id);
+
+			if (book == null)
 			{
 				return RedirectToAction("Index");
 			}
 
-			var author = _context.Authors.FirstOrDefault(a=>a.Name ==authorName);
+			var author = _context.Authors.FirstOrDefault(a => a.Name == authorName);
 
-			if(author == null)
+			if (author == null)
 			{
 				author = new Author
 				{
@@ -90,9 +90,9 @@ namespace BookManager.Controllers
 		[HttpPost]
 		public IActionResult Delete(int id)
 		{
-			var book = _context.Books.FirstOrDefault(b=>b.Id==id);
+			var book = _context.Books.FirstOrDefault(b => b.Id == id);
 
-			if( book == null )
+			if (book == null)
 			{
 				return RedirectToAction("Index");
 			}
@@ -103,5 +103,28 @@ namespace BookManager.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[HttpGet]
+		public IActionResult Index(string? search, string? author, string? genre, int? yearFrom, int? yearTo)
+		{
+			IQueryable<Book> query = _context.Books;
+
+			query = query.Include(b => b.Author);
+
+			if (!string.IsNullOrEmpty(search))
+			{
+				query = query.Where(b => b.Title.Contains(search));
+			}
+
+			if(!string.IsNullOrWhiteSpace(author))
+			{
+				query = query.Where(b => b.Author.Name.Contains(author));
+
+			}
+
+			var books = query.ToList();
+
+			return View(books);
+
+		}
 	}
 }

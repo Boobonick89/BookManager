@@ -1,0 +1,26 @@
+﻿<dialog id="searchBookWindow">
+	<h2>Поиск книги</h2>
+	<form asp-action="Index" method="get">
+
+		<label>Название</label>
+		<input type="text" name="search"/>
+
+		<label>Автор</label>
+		<input type="text" name="author"/>
+
+		<label>Жанр</label>
+		<input type="text" name="genre"/>
+
+		<label>Год от</label>
+		<input type="number" name="yearFrom"/>
+
+		<label>Год до</label>
+		<input type="number" name="yearTo"/>
+
+		<div class="book-form-buttons">
+			<button type="submit">Найти</button>
+			<button type="button" id="closeSearchBookWindow">Отмена</button>
+		</div>
+
+	</form>
+</dialog>
