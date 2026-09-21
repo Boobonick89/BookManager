@@ -1,9 +1,18 @@
-﻿@model List<BookManager.Models.Book>
-<link rel="stylesheet" href="~/css/book/book.css"/>
+﻿@model BookManager.ViewModels.BookViewModel
+
+<link rel="stylesheet" href="~/css/book/book.css" />
 
 <h1>Книги</h1>
-<button id="addBookButton" class="add-book-button">Добавить книгу</button>
-<button id="searchBookButton" class="add-book-button">Поиск</button>
+
+<div class="book-toolbar">
+	<button id="addBookButton" class="add-book-button">Добавить книгу</button>
+	<button id="searchBookButton" class="add-book-button">Поиск</button>
+
+	@if (ViewBag.HasFilters)
+	{
+		<a asp-action="Index" class="add-book-button">Сбросить фильтры</a>
+	}
+</div>
 
 
 	<table>
@@ -18,7 +27,7 @@
 		</thead>
 
 	<tbody>
-		@foreach (var book in Model)
+		@foreach (var book in Model.Books)
 		{
 			<tr>
 				<td>@book.Title</td>
@@ -35,7 +44,7 @@
 	</table>
 
 
-<partial name="_CreateModal" />
+<partial name="_CreateModal" model="Model" />
 <partial name="_EditModal" />
-<partial name="_SearchModal"/>
+<partial name="_SearchModal" />
 <script src="~/js/book/book.js"></script>

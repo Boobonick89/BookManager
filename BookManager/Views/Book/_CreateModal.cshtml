@@ -1,18 +1,25 @@
-﻿<dialog id="addBookWindow">
+﻿@model BookManager.ViewModels.BookViewModel
+
+<dialog id="addBookWindow">
 	<h2>Добавить книгу</h2>
 
 	<form asp-action="Create" method="post">
-		<label>Название</label>
-		<input type="text" name="title" />
 
-		<label>Жанр</label>
-		<input type="text" name="genre" />
+		<label asp-for="NewBook.Title">Название</label>
+		<input asp-for="NewBook.Title"/>
+		<span asp-validation-for="NewBook.Title"></span>
 
-		<label>Год</label>
-		<input type="number" name="year" />
+		<label asp-for="NewBook.Genre">Жанр</label>
+		<input asp-for="NewBook.Genre"/>
+		<span asp-validation-for="NewBook.Genre"></span>
 
-		<label>Автор</label>
-		<input type="text" name="authorName" />
+		<label asp-for="NewBook.Year">Год издания</label>
+		<input asp-for="NewBook.Year" />
+		<span asp-validation-for="NewBook.Year"></span>
+
+		<label asp-for="AuthorName">Имя автора</label>
+		<input asp-for="AuthorName"/>
+		<span asp-validation-for="AuthorName"></span>
 
 		<div class="book-form-buttons">
 			<button type="submit">Добавить</button>
@@ -22,3 +29,10 @@
 	</form>
 
 </dialog>
+
+@if(!ViewData.ModelState.IsValid)
+{
+	<script>
+		document.querySelector("#addBookWindow").showModal();
+	</script>
+}

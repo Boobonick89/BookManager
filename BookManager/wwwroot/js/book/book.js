@@ -1,4 +1,6 @@
-﻿const addBookButton = document.querySelector("#addBookButton");
+﻿
+//Добавление книги
+const addBookButton = document.querySelector("#addBookButton");
 const addBookWindow = document.querySelector("#addBookWindow");
 const closeBookWindow = document.querySelector("#closeBookWindow");
 
@@ -10,6 +12,7 @@ closeBookWindow.addEventListener("click", () => {
 	addBookWindow.close();
 });
 
+//Редактирование книги
 const editBookButtons = document.querySelectorAll(".edit-book-button");
 const editBookWindow = document.querySelector("#editBookWindow");
 const closeEditBookWindow = document.querySelector("#closeEditBookWindow");
@@ -27,6 +30,7 @@ editBookButtons.forEach(button => button.addEventListener("click", () => {
 
 closeEditBookWindow.addEventListener("click", () => { editBookWindow.close(); });
 
+//Поиск книги
 const searchBookButton = document.querySelector("#searchBookButton");
 const searchBookWindow = document.querySelector("#searchBookWindow");
 const closeSearchBookWindow = document.querySelector("#closeSearchBookWindow");

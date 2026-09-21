@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BookManager.Data;
-using System.Security.Cryptography.X509Certificates;
+﻿using BookManager.Data;
 using BookManager.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using BookManager.ViewModels;
 
 namespace BookManager.Controllers
 {
@@ -15,23 +16,32 @@ namespace BookManager.Controllers
 			_context = context;
 		}
 
-		public IActionResult Index()
-		{
-			var books = _context.Books.Include(b => b.Author).ToList();
-
-			return View(books);
-		}
-
 		[HttpPost]
-		public IActionResult Create(string title, string genre, int year, string authorName)
+		public IActionResult Create(BookViewModel viewModel)
 		{
-			var author = _context.Authors.FirstOrDefault(a => a.Name == authorName);
+
+			if(string.IsNullOrWhiteSpace(viewModel.AuthorName))
+			{
+				ModelState.AddModelError("AuthorName", "Введите имя автора");
+				
+			}	
+
+			if (!ModelState.IsValid)
+			{
+				viewModel.Books = _context.Books.Include(b => b.Author).ToList();
+
+				ViewBag.HasFilters = false;
+
+				return View("Index", viewModel);
+			}
+
+			var author = _context.Authors.FirstOrDefault(a => a.Name == viewModel.AuthorName);
 
 			if (author == null)
 			{
-				author = new Models.Author
+				author = new Author
 				{
-					Name = authorName
+					Name = viewModel.AuthorName
 				};
 
 				_context.Authors.Add(author);
@@ -39,15 +49,9 @@ namespace BookManager.Controllers
 
 			}
 
-			var book = new Book
-			{
-				Title = title,
-				Genre = genre,
-				Year = year,
-				AuthorId = author.Id,
-			};
+			viewModel.NewBook.AuthorId = author.Id;
 
-			_context.Books.Add(book);
+			_context.Books.Add(viewModel.NewBook);
 			_context.SaveChanges();
 
 			return RedirectToAction("Index");
@@ -72,10 +76,10 @@ namespace BookManager.Controllers
 				{
 					Name = authorName
 				};
-			}
 
-			_context.Authors.Add(author);
-			_context.SaveChanges();
+				_context.Authors.Add(author);
+				_context.SaveChanges();
+			}
 
 			book.Title = title;
 			book.Genre = genre;
@@ -110,20 +114,43 @@ namespace BookManager.Controllers
 
 			query = query.Include(b => b.Author);
 
-			if (!string.IsNullOrEmpty(search))
+			if (!string.IsNullOrWhiteSpace(search))
 			{
 				query = query.Where(b => b.Title.Contains(search));
 			}
 
-			if(!string.IsNullOrWhiteSpace(author))
+			if (!string.IsNullOrWhiteSpace(author))
 			{
 				query = query.Where(b => b.Author.Name.Contains(author));
-
 			}
 
-			var books = query.ToList();
+			if (!string.IsNullOrWhiteSpace(genre))
+			{
+				query = query.Where(b => b.Genre.Contains(genre));
+			}
 
-			return View(books);
+			if (yearFrom.HasValue)
+			{
+				query = query.Where(b => b.Year >= yearFrom.Value);
+			}
+
+
+			if (yearTo.HasValue)
+			{
+				query = query.Where(b => b.Year <= yearTo.Value);
+			}
+
+			ViewBag.HasFilters = !string.IsNullOrWhiteSpace(search)
+								|| !string.IsNullOrWhiteSpace(author)
+								|| !string.IsNullOrWhiteSpace(genre)
+								|| yearFrom.HasValue
+								|| yearTo.HasValue;
+
+			var viewModel = new BookViewModel();
+			viewModel.Books = query.ToList();
+
+			return View(viewModel);
+
 
 		}
 	}
