@@ -1,36 +1,45 @@
 ﻿table {
 	border-collapse: collapse;
+	width:100%;
+	margin-top:10px;
 }
 
 th,
 td {
-	padding: 10px 35px;
-	border-bottom: 1px solid #ccc;
+	padding: 12px 15px;
+	border-bottom: 1px solid #ddd;
+	text-align:left;
 }
 
-.add-book-button {
-	margin-bottom: 15px;
-	padding: 8px 16px;
-	font-size: 16px;
-	cursor: pointer;
-}
 
 dialog
 {
 	width:400px;
-	padding:20px;
+	padding:25px;
+	border:none;
+	border-radius:8px;
 }
 
 dialog label{
 	display:block;
-	margin-bottom:15px;
+	margin-bottom:6px;
+	font-size:15px;
 }
 
 dialog input{
 	display:block;
-	margin-bottom:15px;
+	margin-bottom:18px;
 	width:100%;
 	box-sizing:border-box;
+	padding:8px 10px;
+	font-size:15px;
+	border:1px solid #bbb;
+	border-radius:4px;
+}
+
+dialog h2{
+margin-top:0;
+margin-bottom:25px;
 }
 
 .book-form-buttons{
@@ -38,9 +47,12 @@ dialog input{
 	gap:10px;
 }
 .book-form-buttons button{
-	padding:8px 16px;
+	padding:9px 18px;
 	font-size:15px;
 	cursor:pointer;
+	border:1px solid #bbb;
+	border-radius:4px;
+	background:#f5f5f5;
 }
 
 .book-actions{
@@ -53,12 +65,45 @@ dialog input{
 	gap:10px;
 	align-items:center;
 	margin-bottom:20px;
+	margin:0;
 }
 th{
-text-align:left
+font-weight:600;
 }
 .book-actions button{
-	padding:6px 12px;
+	padding:7px 14px;
 	font-size:14px;
 	cursor:pointer;
+	border:1px solid #bbb;
+	border-radius:4px;
+	background:#f5f5f5;
+}
+
+.book-actions button:hover{
+background:#e8e8e8;
+}
+
+.field-validator-error{
+display:block;
+margin-top: -12px;
+margin-bottom:12px;
+color:#d00;
+}
+
+.add-book-button {
+	padding: 9px 18px;
+	font-size: 15px;
+	cursor: pointer;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	background: #f5f5f5;
+}
+
+.search-book-button {
+	padding: 9px 18px;
+	font-size: 15px;
+	cursor: pointer;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	background: #f5f5f5;
 }
