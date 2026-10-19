@@ -1,4 +1,5 @@
 ﻿using BookManager.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookManager.ViewModels
 {
@@ -8,6 +9,7 @@ namespace BookManager.ViewModels
 
 		public Book NewBook { get; set; } = new();
 
-		public string? AuthorName { get; set; } 
+		[Required(ErrorMessage = "Введите имя автора")]
+		public string AuthorName { get; set; } = string.Empty;
 	}
 }

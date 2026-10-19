@@ -1,9 +1,8 @@
 ﻿using BookManager.Data;
 using BookManager.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
 using BookManager.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Controllers
 {
@@ -121,7 +120,9 @@ namespace BookManager.Controllers
 
 			if (!string.IsNullOrWhiteSpace(author))
 			{
-				query = query.Where(b => b.Author.Name.Contains(author));
+				query = query.Where(b =>
+				 b.Author != null &&
+				b.Author.Name.Contains(author));
 			}
 
 			if (!string.IsNullOrWhiteSpace(genre))
@@ -147,10 +148,11 @@ namespace BookManager.Controllers
 								|| yearTo.HasValue;
 
 			var viewModel = new BookViewModel();
-			viewModel.Books = query.ToList();
+			viewModel.Books = query
+			.OrderBy(b => b.Title)
+			.ToList();
 
 			return View(viewModel);
-
 
 		}
 	}
