@@ -66,15 +66,19 @@ LINQ для запросов, фильтрации и сортировки.
 
 Скриншоты приложения
 
+## Скриншоты приложения
+
 ### Список книг
-![Список книг](https://github.com/Boobonick89/BookManager/blob/main/Screenshots/Git1.jpg?raw=true)
+
+![Список книг](./Screenshots/Git1.jpg)
 
 ### Добавление книги
-![Добавление книги](https://github.com/Boobonick89/BookManager/blob/main/Screenshots/Git2.jpg?raw=true)
+
+![Добавление книги](./Screenshots/Git2.jpg)
 
 ### Поиск книг
-![Поиск книг](https://github.com/Boobonick89/BookManager/blob/main/Screenshots/Git3.jpg?raw=true)
 
+![Поиск книг](./Screenshots/Git3.jpg)
 
 Запуск проекта
 
