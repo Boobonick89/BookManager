@@ -47,4 +47,22 @@
 <partial name="_CreateModal" model="Model" />
 <partial name="_EditModal" />
 <partial name="_SearchModal" />
+
+@if (TempData["EditError"] != null)
+{
+	<dialog id="editErrorWindow" class="message-dialog" open>
+		<p>@TempData["EditError"]</p>
+		<button type="button" id="closeEditError" class="add-book-button">ОК</button>
+	</dialog>
+
+	<script>
+		const errorWindow = document.querySelector("#editErrorWindow");
+		const closeErrorButton = document.querySelector("#closeEditError");
+
+		closeErrorButton.addEventListener("click", () => {
+			errorWindow.close();
+		});
+	</script>
+}
+
 <script src="~/js/book/book.js"></script>

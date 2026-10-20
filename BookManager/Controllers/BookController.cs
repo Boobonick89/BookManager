@@ -67,6 +67,16 @@ namespace BookManager.Controllers
 				return RedirectToAction("Index");
 			}
 
+			if(string.IsNullOrWhiteSpace(title)||
+			string.IsNullOrWhiteSpace(genre)||
+			string.IsNullOrWhiteSpace(authorName)||
+			year<1 || year > 2100)
+			{
+				TempData["EditError"] = "Пожалуйста,заполните все поля корректно";
+				return RedirectToAction("Index");
+				
+			}
+
 			var author = _context.Authors.FirstOrDefault(a => a.Name == authorName);
 
 			if (author == null)
